@@ -19,5 +19,8 @@
 		"yargs":            "^4.3.2",
 		"vbb-static":       "^0.10",
 		"stream-filter":    "^1"
+	},
+	"scripts": {
+		"test":     "node -e 'require(\"./bin.js\")' > /dev/null"
 	}
 }
