@@ -9,5 +9,12 @@
 	"homepage":     "https://github.com/derhuerst/vbb-stations-cli",
 	"repository":   "git://github.com/derhuerst/vbb-stations-cli.git",
 	"license":      "ISC",
-	"engines":      {"node": ">=4"}
+	"engines":      {"node": ">=4"},
+	"dependencies": {
+		"yargs":         "^4.3.2",
+		"vbb-static":    "^0.10",
+		"stream-filter": "^1",
+		"chalk":         "^1.1.3",
+		"pad-right":     "^0.2.2"
+	}
 }

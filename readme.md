@@ -16,8 +16,25 @@ npm install -g vbb-stations-cli
 
 ## Usage
 
-```js
-todo
+```
+Usage:
+    vbb [options] [filters]
+
+Options:
+    --id        <value>          Filter by id.
+    --name      <value>          Filter by name.
+    --latitude  <value>          Filter by latitude.
+    --longitude <value>          Filter by longitude.
+    --weight    <value>          Filter by weight.
+    --format    <pretty|ndjson>  Default is pretty.
+
+Filters:
+    Each filter must be an See `Array.prototype.filter`-compatible funtion.
+
+Examples:
+    vbb # shows all stations
+    vbb --id 9003104
+    vbb "(s) => s.latitude > 52" "(s) => s.latitude > 12"
 ```
 
 
