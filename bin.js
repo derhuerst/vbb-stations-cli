@@ -1,38 +1,52 @@
 #!/usr/bin/env node
 'use strict'
 
-const yargs  = require('yargs')
-const data   = require('vbb-static')
-const filter = require('stream-filter')
-const chalk  = require('chalk')
-const pRight = require('pad-right')
+const chalk   = require('chalk')
+const pRight  = require('pad-right')
+const yargs   = require('yargs')
+const data    = require('vbb-static')
+const filter  = require('stream-filter')
+
+
+
+const formats = {
+
+	  csv:    () => require('csv-write-stream')()
+	, ndjson: () => require('ndjson').stringify()
+
+	, pretty: () => require('through2').obj((s, _, cb) => cb(null, [
+		  chalk.blue(s.id)
+		, chalk.yellow(pRight(s.name.slice(0, 40), 40, ' '))
+		, chalk.gray(pRight(s.latitude.toString().slice(0, 9), 9, ' '))
+		, chalk.gray(pRight(s.longitude.toString().slice(0, 9), 9, ' '))
+		, chalk.green(s.weight)
+	].join(' ') + '\n'))
+}
 
 
 
 const argv = yargs.argv
 
-
-
 if (argv.help || argv.h) {
 	process.stdout.write([
-		'Usage:',
-		'    vbb [options] [filters]',
-		'',
-		'Options:',
-		'    --id        <value>          Filter by id.',
-		'    --name      <value>          Filter by name.',
-		'    --latitude  <value>          Filter by latitude.',
-		'    --longitude <value>          Filter by longitude.',
-		'    --weight    <value>          Filter by weight.',
-		'    --format    <pretty|ndjson>  Default is pretty.',
-		'',
-		'Filters:',
-		'    Each filter must be an See `Array.prototype.filter`-compatible funtion.',
-		'',
-		'Examples:',
-		'    vbb # shows all stations',
-		'    vbb --id 9003104',
-		'    vbb "(s) => s.latitude > 52" "(s) => s.latitude > 12"'
+		  'Usage:'
+		, '    vbb [options] [filters]'
+		, ''
+		, 'Options:'
+		, '    --id        <value>             Filter by id.'
+		, '    --name      <value>             Filter by name.'
+		, '    --latitude  <value>             Filter by latitude.'
+		, '    --longitude <value>             Filter by longitude.'
+		, '    --weight    <value>             Filter by weight.'
+		, '    --format    <csv|ndjson|pretty> Default is pretty.'
+		, ''
+		, 'Filters:'
+		, '    Each filter must be an See `Array.prototype.filter`-compatible funtion.'
+		, ''
+		, 'Examples:'
+		, '    vbb # shows all stations'
+		, '    vbb --id 9003104'
+		, '    vbb "(s) => s.latitude > 52" "(s) => s.latitude > 12"'
 	].join('\n') + '\n')
 	process.exit()
 }
@@ -51,6 +65,8 @@ let filters = argv._.map(eval)
 
 
 
+let format = formats[argv.format] || formats.pretty
+
 data.stations(selection)
 .pipe(filter((s) => {
 	for (let filter of filters) {
@@ -58,10 +74,4 @@ data.stations(selection)
 	}
 	return true
 }))
-.on('data', (s) => process.stdout.write([
-	  chalk.blue(s.id)
-	, chalk.yellow(pRight(s.name.slice(0, 40), 40, ' '))
-	, chalk.gray(pRight(s.latitude.toString().slice(0, 9), 9, ' '))
-	, chalk.gray(pRight(s.longitude.toString().slice(0, 9), 9, ' '))
-	, chalk.green(s.weight)
-].join(' ') + '\n'))
+.pipe(format()).pipe(process.stdout)
