@@ -1,0 +1,13 @@
+{
+	"name":         "vbb-stations-cli",
+	"description":  "Find and filter VBB stations from the command line.",
+	"version":      "0.1.0",
+	"bin":          {"vbb": "./bin.js"},
+	"files":        ["./bin.js"],
+	"keywords":     ["vbb", "stations", "filter", "find", "search", "cli"],
+	"author":       "Jannis R <mail@jannisr.de>",
+	"homepage":     "https://github.com/derhuerst/vbb-stations-cli",
+	"repository":   "git://github.com/derhuerst/vbb-stations-cli.git",
+	"license":      "ISC",
+	"engines":      {"node": ">=4"}
+}
