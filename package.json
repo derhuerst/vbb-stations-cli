@@ -21,6 +21,6 @@
 		"stream-filter":    "^1"
 	},
 	"scripts": {
-		"test":     "node -e 'require(\"./bin.js\")' > /dev/null"
+		"test":     "./bin.js > /dev/null"
 	}
 }
