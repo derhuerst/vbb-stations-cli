@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 'use strict'
 
-const chalk   = require('chalk')
-const pRight  = require('pad-right')
-const yargs   = require('yargs')
-const data    = require('vbb-static')
-const filter  = require('stream-filter')
+const chalk    = require('chalk')
+const pRight   = require('pad-right')
+const yargs    = require('yargs')
+const stations = require('vbb-stations')
+const filter   = require('stream-filter')
 
 
 
@@ -67,7 +67,7 @@ let filters = argv._.map(eval)
 
 let format = formats[argv.format] || formats.pretty
 
-data.stations(selection)
+stations(selection)
 .pipe(filter((s) => {
 	for (let filter of filters) {
 		if (!filter(s)) return false
