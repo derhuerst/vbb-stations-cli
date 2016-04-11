@@ -4,6 +4,7 @@
 const chalk    = require('chalk')
 const pRight   = require('pad-right')
 const yargs    = require('yargs')
+const search   = require('vbb-find-stations')
 const stations = require('vbb-stations')
 const filter   = require('stream-filter')
 
@@ -26,6 +27,7 @@ const formats = {
 
 
 const argv = yargs.argv
+argv.query = argv._.shift()
 
 if (argv.help || argv.h) {
 	process.stdout.write([
@@ -59,19 +61,29 @@ if ('name'      in argv) selection.name      = argv.name
 if ('latitude'  in argv) selection.latitude  = parseFloat(argv.latitude)
 if ('longitude' in argv) selection.longitude = parseFloat(argv.longitude)
 if ('weight'    in argv) selection.weight    = parseFloat(argv.weight)
+
 if (Object.keys(selection).length === 0) selection = 'all'
 
-let filters = argv._.map(eval)
+const filters = argv._.map(eval)
+
+const format = formats[argv.format] || formats.pretty
 
 
 
-let format = formats[argv.format] || formats.pretty
+if ('string' === typeof argv.query && argv.query.length > 0) {
+	const ids = []
+	search(argv.query)
+	.on('data', (s) => ids.push(s.id))
+	.on('end', () => onStream(stations(selection)
+		.pipe(filter((s) => ids.indexOf(s.id) >= 0))))
+} else onStream(stations(selection))
 
-stations(selection)
-.pipe(filter((s) => {
-	for (let filter of filters) {
-		if (!filter(s)) return false
-	}
-	return true
-}))
-.pipe(format()).pipe(process.stdout)
+const onStream = (stream) => stream
+	.pipe(filter((s) => {
+		for (let filter of filters) {
+			if (!filter(s)) return false
+		}
+		return true
+	}))
+	.pipe(format())
+	.pipe(process.stdout)
