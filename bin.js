@@ -32,7 +32,10 @@ argv.query = argv._.shift()
 if (argv.help || argv.h) {
 	process.stdout.write([
 		  'Usage:'
-		, '    vbb [options] [filters]'
+		, '    vbb [query] [options] [filters]'
+		, ''
+		, 'Arguments:'
+		, '    query       Search for a station by name.'
 		, ''
 		, 'Options:'
 		, '    --id        <value>             Filter by id.'
@@ -47,6 +50,7 @@ if (argv.help || argv.h) {
 		, ''
 		, 'Examples:'
 		, '    vbb # shows all stations'
+		, '    vbb Wittenbergplatz'
 		, '    vbb --id 9003104'
 		, '    vbb "(s) => s.latitude > 52" "(s) => s.latitude > 12"'
 	].join('\n') + '\n')

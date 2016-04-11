@@ -1,6 +1,6 @@
 # *vbb-stations-cli*
 
-Find and filter VBB stations from the command line. [ISC-licensed](license.md).
+Find and filter VBB stations from the command line.
 
 [![asciicast](https://asciinema.org/a/40777.png)](https://asciinema.org/a/40777)
 
@@ -8,6 +8,7 @@ Find and filter VBB stations from the command line. [ISC-licensed](license.md).
 [![build status](https://img.shields.io/travis/derhuerst/vbb-stations-cli.svg)](https://travis-ci.org/derhuerst/vbb-stations-cli)
 [![dependency status](https://img.shields.io/david/derhuerst/vbb-stations-cli.svg)](https://david-dm.org/derhuerst/vbb-stations-cli)
 [![dev dependency status](https://img.shields.io/david/dev/derhuerst/vbb-stations-cli.svg)](https://david-dm.org/derhuerst/vbb-stations-cli#info=devDependencies)
+![ISC-licensed](https://img.shields.io/github/license/derhuerst/vbb-stations-cli.svg)
 
 
 ## Installing
@@ -21,7 +22,10 @@ npm install -g vbb-stations-cli
 
 ```
 Usage:
-    vbb [options] [filters]
+    vbb [query] [options] [filters]
+
+Arguments:
+    query       Search for a station by name.
 
 Options:
     --id        <value>             Filter by id.
@@ -36,6 +40,7 @@ Filters:
 
 Examples:
     vbb # shows all stations
+    vbb Wittenbergplatz
     vbb --id 9003104
     vbb "(s) => s.latitude > 52" "(s) => s.latitude > 12"
 ```
