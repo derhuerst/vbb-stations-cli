@@ -2,7 +2,7 @@
 
 Find and filter VBB stations from the command line.
 
-[![asciicast](https://asciinema.org/a/40777.png)](https://asciinema.org/a/40777)
+[![asciicast](https://asciinema.org/a/42039.png)](https://asciinema.org/a/42039)
 
 [![npm version](https://img.shields.io/npm/v/vbb-stations-cli.svg)](https://www.npmjs.com/package/vbb-stations-cli)
 [![build status](https://img.shields.io/travis/derhuerst/vbb-stations-cli.svg)](https://travis-ci.org/derhuerst/vbb-stations-cli)
@@ -22,10 +22,7 @@ npm install -g vbb-stations-cli
 
 ```
 Usage:
-    vbb [query] [options] [filters]
-
-Arguments:
-    query       Search for a station by name.
+    vbb [options] [filters]
 
 Options:
     --id        <value>             Filter by id.
@@ -36,11 +33,11 @@ Options:
     --format    <csv|ndjson|pretty> Default is pretty.
 
 Filters:
-    Each filter must be an See `Array.prototype.filter`-compatible funtion.
+    Each filter must be an `Array.prototype.filter`-compatible funtion.
 
 Examples:
-    vbb # shows all stations
-    vbb Wittenbergplatz
+    vbb
+    vbb --name "berliner strasse"
     vbb --id 9003104
     vbb "(s) => s.latitude > 52" "(s) => s.latitude > 12"
 ```
