@@ -31,7 +31,7 @@ const argv = yargs.argv
 if (argv.help || argv.h) {
 	process.stdout.write([
 		  'Usage:'
-		, '    vbb [options] [filters]'
+		, '    vbb-stations [options] [filters]'
 		, ''
 		, 'Options:'
 		, '    --id        <value>             Filter by id.'

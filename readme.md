@@ -22,7 +22,7 @@ npm install -g vbb-stations-cli
 
 ```
 Usage:
-    vbb [options] [filters]
+    vbb-stations [options] [filters]
 
 Options:
     --id        <value>             Filter by id.
