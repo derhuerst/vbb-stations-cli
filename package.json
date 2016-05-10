@@ -1,7 +1,7 @@
 {
 	"name":         "vbb-stations-cli",
 	"description":  "Find and filter VBB stations from the command line.",
-	"version":      "0.4.0",
+	"version":      "0.4.1",
 	"bin":          {"vbb-stations": "bin.js"},
 	"files":        ["bin.js"],
 	"keywords":     ["vbb", "stations", "filter", "find", "search", "cli"],
