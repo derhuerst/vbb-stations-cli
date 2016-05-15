@@ -19,7 +19,8 @@
 		"yargs":                "^4.3.2",
 		"vbb-stations":         "^0.4",
 		"vbb-tokenize-station": "^0.1.1",
-		"stream-filter":        "^1"
+		"stream-filter":        "^1",
+		"vbb-short-station-name": "^0.1"
 	},
 	"scripts": {
 		"test":     "./bin.js > /dev/null"

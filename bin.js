@@ -2,6 +2,7 @@
 'use strict'
 
 const chalk    = require('chalk')
+const shorten  = require('vbb-short-station-name')
 const pRight   = require('pad-right')
 const yargs    = require('yargs')
 const stations = require('vbb-stations')
@@ -15,13 +16,17 @@ const formats = {
 	  csv:    () => require('csv-write-stream')()
 	, ndjson: () => require('ndjson').stringify()
 
-	, pretty: () => require('through2').obj((s, _, cb) => cb(null, [
-		  chalk.blue(s.id)
-		, chalk.yellow(pRight(s.name.slice(0, 40), 40, ' '))
-		, chalk.gray(pRight(s.latitude.toString().slice(0, 9), 9, ' '))
-		, chalk.gray(pRight(s.longitude.toString().slice(0, 9), 9, ' '))
-		, chalk.green(s.weight)
-	].join(' ') + '\n'))
+	, pretty: () => require('through2').obj((s, _, cb) => {
+		const shorten = require('vbb-short-station-name')
+		const name = pRight(shorten(s.name).slice(0, 40), 40, ' ')
+		const lat  = pRight(s.latitude.toString().slice(0, 9), 9, ' ')
+		const long = pRight(s.longitude.toString().slice(0, 9), 9, ' ')
+		return cb(null, [
+			  chalk.blue(s.id), chalk.yellow(name)
+			, chalk.gray(lat), chalk.gray(long)
+			, chalk.green(s.weight)
+		].join(' ') + '\n')
+	})
 }
 
 
