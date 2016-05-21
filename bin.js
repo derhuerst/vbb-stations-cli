@@ -39,7 +39,7 @@ const formats = {
 			let lines = linesAt[s.id].map((l) => l.name).join(' ')
 			line.push('  ' + lines)
 		}
-		return cb(null, truncate(line.join(' '), cliWidth) + '\n')
+		return cb(null, truncate(line.join(' '), cliWidth || 80) + '\n')
 	})
 }
 
