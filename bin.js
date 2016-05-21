@@ -36,8 +36,9 @@ const formats = {
 			line.push(chalk.yellow(name))
 		}
 		if (columns.lines) {
-			let lines = linesAt[s.id].map((l) => l.name).join(' ')
-			line.push('  ' + lines)
+			let lines = linesAt[s.id]
+			if (lines) line.push('  ' + lines
+				.map((l) => l.name).join(' '))
 		}
 		return cb(null, truncate(line.join(' '), cliWidth || 80) + '\n')
 	})
