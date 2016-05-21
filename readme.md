@@ -2,7 +2,7 @@
 
 Find and filter VBB stations from the command line.
 
-[![asciicast](https://asciinema.org/a/42039.png)](https://asciinema.org/a/42039)
+[![asciicast](https://asciinema.org/a/46297.png)](https://asciinema.org/a/46297)
 
 [![npm version](https://img.shields.io/npm/v/vbb-stations-cli.svg)](https://www.npmjs.com/package/vbb-stations-cli)
 [![build status](https://img.shields.io/travis/derhuerst/vbb-stations-cli.svg)](https://travis-ci.org/derhuerst/vbb-stations-cli)
