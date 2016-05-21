@@ -3,7 +3,11 @@
 
 const chalk    = require('chalk')
 const shorten  = require('vbb-short-station-name')
+const pLeft    = require('pad-left')
 const pRight   = require('pad-right')
+const linesAt  = require('vbb-lines-at')
+const cliWidth = require('window-size').width
+const truncate = require('cli-truncate')
 const yargs    = require('yargs')
 const stations = require('vbb-stations')
 const tokenize = require('vbb-tokenize-station')
@@ -11,21 +15,27 @@ const filter   = require('stream-filter')
 
 
 
+const col = (x, p, l) => p(x.toString().slice(0, l), l, ' ')
+
 const formats = {
 
 	  csv:    () => require('csv-write-stream')()
 	, ndjson: () => require('ndjson').stringify()
 
-	, pretty: () => require('through2').obj((s, _, cb) => {
-		const shorten = require('vbb-short-station-name')
-		const name = pRight(shorten(s.name).slice(0, 40), 40, ' ')
-		const lat  = pRight(s.latitude.toString().slice(0, 9), 9, ' ')
-		const long = pRight(s.longitude.toString().slice(0, 9), 9, ' ')
-		return cb(null, [
-			  chalk.blue(s.id), chalk.yellow(name)
-			, chalk.gray(lat), chalk.gray(long)
-			, chalk.green(s.weight)
-		].join(' ') + '\n')
+	, pretty: (columns) => require('through2').obj((s, _, cb) => {
+		const line = []
+		if (columns.id) line.push(chalk.blue(s.id))
+		if (columns.coords) {
+			const lat    = col(s.latitude,  pRight, 9)
+			const long   = col(s.longitude, pRight, 9)
+			line.push(chalk.gray(lat + ' ' + long))
+		}
+		if (columns.weight) line.push(chalk.green(col(s.weight, pLeft, 6)))
+		if (columns.name) {
+			const name = shorten(s.name).slice(0, 35)
+			line.push(chalk.yellow(name))
+		}
+		return cb(null, truncate(line.join(' '), cliWidth) + '\n')
 	})
 }
 
@@ -70,6 +80,9 @@ if (Object.keys(selection).length === 0) selection = 'all'
 const filters = argv._.map(eval)
 const format = formats[argv.format] || formats.pretty
 
+let columns = (argv['columns'] || 'id,coords,weight,name').split(',')
+.reduce((acc, column) => {acc[column] = true; return acc}, {})
+
 
 
 let stream = stations(selection)
@@ -92,5 +105,5 @@ stream
 	}
 	return true
 }))
-.pipe(format())
+.pipe(format(columns))
 .pipe(process.stdout)
