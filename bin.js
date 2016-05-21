@@ -35,6 +35,10 @@ const formats = {
 			const name = shorten(s.name).slice(0, 35)
 			line.push(chalk.yellow(name))
 		}
+		if (columns.lines) {
+			let lines = linesAt[s.id].map((l) => l.name).join(' ')
+			line.push('  ' + lines)
+		}
 		return cb(null, truncate(line.join(' '), cliWidth) + '\n')
 	})
 }
@@ -80,7 +84,7 @@ if (Object.keys(selection).length === 0) selection = 'all'
 const filters = argv._.map(eval)
 const format = formats[argv.format] || formats.pretty
 
-let columns = (argv['columns'] || 'id,coords,weight,name').split(',')
+let columns = (argv['columns'] || 'id,coords,weight,name,lines').split(',')
 .reduce((acc, column) => {acc[column] = true; return acc}, {})
 
 
