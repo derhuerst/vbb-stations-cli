@@ -1,14 +1,14 @@
 #!/usr/bin/env node
 'use strict'
 
+const combine  = require('duplexer')
 const csv      = require('csv-write-stream')
 const ndjson   = require('ndjson')
-const through  = require('through')
+const map      = require('through2-map')
 const chalk    = require('chalk')
 const shorten  = require('vbb-short-station-name')
 const pLeft    = require('pad-left')
 const pRight   = require('pad-right')
-const linesAt  = require('vbb-lines-at')
 const cliWidth = require('window-size').width
 const truncate = require('cli-truncate')
 
@@ -18,12 +18,20 @@ const col = (x, p, l) => p(x.toString().slice(0, l), l, ' ')
 
 module.exports = {
 
-	  csv: () => csv()
+	  csv: () => {
+	  	const a = map.obj((s) => {
+			s.lines = s.lines.map((l) => l.name).join(',')
+			return s
+		})
+		const b = a.pipe(csv())
+		return combine(a, b)
+	}
+	  // csv: () => csv()
 	, ndjson: () => ndjson.stringify()
 
 
 
-	, pretty: (columns) => through.obj((s, _, cb) => {
+	, pretty: (columns) => map.obj((s) => {
 		const line = []
 		if (columns.id) line.push(chalk.blue(s.id))
 		if (columns.coords) {
@@ -36,12 +44,9 @@ module.exports = {
 			const name = shorten(s.name).slice(0, 35)
 			line.push(chalk.yellow(name))
 		}
-		if (columns.lines) {
-			let lines = linesAt[s.id]
-			if (lines) line.push('  ' + lines
-				.map((l) => l.name).join(' '))
-		}
-		return cb(null, truncate(line.join(' '), cliWidth || 80) + '\n')
+		if (columns.lines && s.lines)
+			line.push('  ' + s.lines.map((l) => l.name).join(' '))
+		return truncate(line.join(' '), cliWidth || 80) + '\n'
 	})
 
 }
