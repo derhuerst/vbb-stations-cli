@@ -31,6 +31,7 @@ Options:
     --longitude <value>             Filter by longitude.
     --weight    <value>             Filter by weight.
     --format    <csv|ndjson|pretty> Default is pretty.
+    --columns   <value>,<value>,…   Default is id,coords,weight,name,lines.
 
 Filters:
     Each filter must be an `Array.prototype.filter`-compatible funtion.
@@ -38,7 +39,7 @@ Filters:
 Examples:
     vbb
     vbb --name "berliner strasse"
-    vbb --id 9003104
+    vbb --id 9003104 --columns id,name,lines
     vbb "(s) => s.latitude > 52" "(s) => s.latitude > 12"
 ```
 

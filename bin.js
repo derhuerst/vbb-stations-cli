@@ -13,27 +13,28 @@ const formats  = require('./formats')
 const argv = yargs.argv
 
 if (argv.help || argv.h) {
-	process.stdout.write([
-		  'Usage:'
-		, '    vbb-stations [options] [filters]'
-		, ''
-		, 'Options:'
-		, '    --id        <value>             Filter by id.'
-		, '    --name      <value>             Filter by name.'
-		, '    --latitude  <value>             Filter by latitude.'
-		, '    --longitude <value>             Filter by longitude.'
-		, '    --weight    <value>             Filter by weight.'
-		, '    --format    <csv|ndjson|pretty> Default is pretty.'
-		, ''
-		, 'Filters:'
-		, '    Each filter must be an `Array.prototype.filter`-compatible funtion.'
-		, ''
-		, 'Examples:'
-		, '    vbb'
-		, '    vbb --name "berliner strasse"'
-		, '    vbb --id 9003104'
-		, '    vbb "(s) => s.latitude > 52" "(s) => s.latitude > 12"'
-	].join('\n') + '\n')
+	process.stdout.write(`
+Usage:
+    vbb-stations [options] [filters]
+
+Options:
+    --id        <value>             Filter by id.
+    --name      <value>             Filter by name.
+    --latitude  <value>             Filter by latitude.
+    --longitude <value>             Filter by longitude.
+    --weight    <value>             Filter by weight.
+    --format    <csv|ndjson|pretty> Default is pretty.
+    --columns   <value>,<value>,…   Default is id,coords,weight,name,lines.
+
+Filters:
+    Each filter must be an \`Array.prototype.filter\`-compatible funtion.
+
+Examples:
+    vbb
+    vbb --name "berliner strasse"
+    vbb --id 9003104 --columns id,name,lines
+    vbb "(s) => s.latitude > 52" "(s) => s.latitude > 12"
+\n`)
 	process.exit()
 }
 
