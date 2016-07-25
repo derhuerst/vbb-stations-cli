@@ -1,7 +1,7 @@
 {
 	"name":         "vbb-stations-cli",
 	"description":  "Find and filter VBB stations from the command line.",
-	"version":      "0.7.1",
+	"version":      "0.8.0",
 	"bin":          {"vbb-stations": "bin.js"},
 	"files":        ["bin.js", "formats.js"],
 	"keywords":     ["vbb", "stations", "filter", "find", "search", "cli"],
@@ -16,7 +16,7 @@
 		"vbb-tokenize-station": "^0.2",
 		"stream-filter": "^1",
 		"through2-map": "^2",
-		"vbb-lines-at": "^1",
+		"vbb-lines-at": "^1.1",
 		"duplexer": "^0.1.1",
 		"csv-write-stream": "^2",
 		"ndjson": "^1.4.3",
