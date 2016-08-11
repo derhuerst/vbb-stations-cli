@@ -1,52 +1,54 @@
 #!/usr/bin/env node
 'use strict'
 
-const combine  = require('duplexer')
-const csv      = require('csv-write-stream')
-const ndjson   = require('ndjson')
-const map      = require('through2-map')
+const toCsv = require('d3-dsv').csvFormat
+const pick = require('lodash.pick')
 const chalk    = require('chalk')
+const padRight   = require('pad-right')
 const shorten  = require('vbb-short-station-name')
-const pLeft    = require('pad-left')
-const pRight   = require('pad-right')
-const cliWidth = require('window-size').width
+const padLeft    = require('pad-left')
 const truncate = require('cli-truncate')
+const cli = require('window-size')
 
 
 
-const col = (x, p, l) => p(x.toString().slice(0, l), l, ' ')
-
-module.exports = {
-
-	  csv: () => {
-	  	const a = map.obj((s) => {
-			s.lines = s.lines.map((l) => l.name).join(',')
-			return s
-		})
-		const b = a.pipe(csv())
-		return combine(a, b)
-	}
-	  // csv: () => csv()
-	, ndjson: () => ndjson.stringify()
-
-
-
-	, pretty: (columns) => map.obj((s) => {
-		const line = []
-		if (columns.id) line.push(chalk.blue(s.id))
-		if (columns.coords) {
-			const lat    = col(s.latitude,  pRight, 9)
-			const long   = col(s.longitude, pRight, 9)
-			line.push(chalk.gray(lat + ' ' + long))
-		}
-		if (columns.weight) line.push(chalk.green(col(s.weight, pLeft, 6)))
-		if (columns.name) {
-			const name = shorten(s.name).slice(0, 35)
-			line.push(chalk.yellow(name))
-		}
-		if (columns.lines && s.lines)
-			line.push('  ' + s.lines.map((l) => l.name).join(' '))
-		return truncate(line.join(' '), cliWidth || 80) + '\n'
-	})
-
+const csv = (columns, stations, out) => {
+	if (columns.coords)
+		columns.splice(columns.indexOf('coords'), 1, 'latitude', 'longitude')
+	if (columns.lines) for (let station of stations)
+		station.lines = station.lines.map((line) => line.name).join(',')
+	out.write(toCsv(stations, columns) + '\n')
 }
+
+const ndjson = (columns, stations, out) => {
+	for (let station of stations)
+		out.write(JSON.stringify(pick(station, columns)) + '\n')
+}
+
+
+
+const column = (value, pad, width) =>
+	pad(truncate(value.toString(), width), width, ' ')
+
+const pretty = (columns, stations, out) => {
+	for (let station of stations) {
+		const line = []
+		if (columns.id) line.push(chalk.blue(station.id))
+		if (columns.coords) line.push(chalk.gray(
+			  column(station.latitude,  padRight, 9)
+			+ ' '
+			+ column(station.longitude, padRight, 9)
+		))
+		if (columns.weight)
+			line.push(chalk.green(column(station.weight, padLeft, 6)))
+		if (columns.name)
+			line.push(chalk.yellow(truncate(shorten(station.name), 35)))
+		if (columns.lines && station.lines)
+			line.push('  ' + station.lines.map((line) => line.name).join(' '))
+		out.write(truncate(line.join(' '), cli.width || 80) + '\n')
+	}
+}
+
+
+
+module.exports = {csv, ndjson, pretty}

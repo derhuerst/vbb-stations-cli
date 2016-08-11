@@ -5,7 +5,6 @@ const yargs    = require('yargs')
 const stations = require('vbb-stations')
 const tokenize = require('vbb-tokenize-station')
 const linesAt  = require('vbb-lines-at')
-const stream = require('from2-array')
 
 const formats  = require('./formats')
 
@@ -51,8 +50,9 @@ if (Object.keys(selection).length === 0) selection = 'all'
 const filters = argv._.map(eval)
 const format = formats[argv.format] || formats.pretty
 
-let columns = (argv['columns'] || 'id,coords,weight,name,lines').split(',')
-.reduce((acc, column) => {acc[column] = true; return acc}, {})
+const columns = (argv['columns'] || 'id,coords,weight,name,lines').split(',')
+Object.assign(columns, columns
+	.reduce((columns, column) => {columns[column] = true; return columns}, {}))
 
 
 
@@ -84,6 +84,4 @@ if (filters.length > 0) list = list.filter((station) => {
 	return true
 })
 
-stream.obj(list)
-.pipe(format(columns))
-.pipe(process.stdout)
+format(columns, list, process.stdout)
