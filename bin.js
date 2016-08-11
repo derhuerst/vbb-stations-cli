@@ -4,9 +4,8 @@
 const yargs    = require('yargs')
 const stations = require('vbb-stations')
 const tokenize = require('vbb-tokenize-station')
-const filter   = require('stream-filter')
-const map      = require('through2-map')
 const linesAt  = require('vbb-lines-at')
+const stream = require('from2-array')
 
 const formats  = require('./formats')
 
@@ -57,34 +56,34 @@ let columns = (argv['columns'] || 'id,coords,weight,name,lines').split(',')
 
 
 
-let stream = stations(selection)
+let list = stations(selection)
 
 // filter by name
 if (argv.name && argv.name.length > 0) {
 	const fragments = tokenize(argv.name)
-	stream = stream.pipe(filter((station) => {
+	list = list.filter((station) => {
 		const tokens = tokenize(station.name)
 		for (let fragment of fragments) {
 			if (tokens.indexOf(fragment) < 0) return false
 		}
 		return true
-	}))
+	})
 }
 
 // enhance with lines
-if (columns.lines) stream = stream.pipe(map.obj((s) => {
-	s.lines = linesAt[s.id] || []
-	return s
-}))
+if (columns.lines) list = list.map((station) => {
+	station.lines = linesAt[station.id] || []
+	return station
+})
 
 // filter by fn
-if (filters.length > 0) stream = stream.pipe(filter((s) => {
+if (filters.length > 0) list = list.filter((station) => {
 	for (let filter of filters) {
-		if (!filter(s)) return false
+		if (!filter(station)) return false
 	}
 	return true
-}))
+})
 
-stream
+stream.obj(list)
 .pipe(format(columns))
 .pipe(process.stdout)

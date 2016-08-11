@@ -12,11 +12,11 @@
 	"engines":      {"node": ">=4"},
 	"dependencies": {
 		"yargs": "^4.7.1",
-		"vbb-stations": "^1",
+		"vbb-stations": "^2",
 		"vbb-tokenize-station": "^0.2",
-		"stream-filter": "^1",
 		"through2-map": "^2",
 		"vbb-lines-at": "^1.1",
+		"from2-array": "^0.0.4",
 		"duplexer": "^0.1.1",
 		"csv-write-stream": "^2",
 		"ndjson": "^1.4.3",
