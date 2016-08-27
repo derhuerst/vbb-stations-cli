@@ -9,6 +9,7 @@
 [![dependency status](https://img.shields.io/david/derhuerst/vbb-stations-cli.svg)](https://david-dm.org/derhuerst/vbb-stations-cli)
 [![dev dependency status](https://img.shields.io/david/dev/derhuerst/vbb-stations-cli.svg)](https://david-dm.org/derhuerst/vbb-stations-cli#info=devDependencies)
 ![ISC-licensed](https://img.shields.io/github/license/derhuerst/vbb-stations-cli.svg)
+[![gitter channel](https://badges.gitter.im/derhuerst/vbb-rest.svg)](https://gitter.im/derhuerst/vbb-rest)
 
 
 ## Installing
