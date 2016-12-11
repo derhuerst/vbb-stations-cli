@@ -41,7 +41,7 @@ Examples:
 
 
 let selection = {}
-if ('id'        in argv) selection.id        = parseInt(argv.id)
+if (argv.id)             selection.id        = argv.id.toString().trim()
 if ('latitude'  in argv) selection.latitude  = parseFloat(argv.latitude)
 if ('longitude' in argv) selection.longitude = parseFloat(argv.longitude)
 if ('weight'    in argv) selection.weight    = parseFloat(argv.weight)
