@@ -1,6 +1,6 @@
 # *vbb-stations-cli*
 
-**Find and filter VBB stations from the command line.**
+**Find and filter VBB stations from the command line.** Computed from [open](http://daten.berlin.de/datensaetze/vbb-fahrplandaten-januar-2017-bis-dezember-2017) [GTFS](https://developers.google.com/transit/gtfs/) [data](https://vbb-gtfs.jannisr.de/).
 
 [![asciicast](https://asciinema.org/a/82500.png)](https://asciinema.org/a/82500)
 
@@ -40,7 +40,7 @@ Filters:
 Examples:
     vbb
     vbb --name "berliner strasse"
-    vbb --id 9003104 --columns id,name,lines
+    vbb --id 900000044201 --columns id,name,lines
     vbb "(s) => s.latitude > 52" "(s) => s.latitude > 12"
 ```
 
