@@ -34,11 +34,15 @@ const pretty = (columns, stations, out) => {
 	for (let station of stations) {
 		const line = []
 		if (columns.id) line.push(chalk.blue(station.id))
-		if (columns.coords) line.push(chalk.gray(
-			  column(station.latitude,  padRight, 9)
-			+ ' '
-			+ column(station.longitude, padRight, 9)
-		))
+		if (columns.coords) {
+			if (station.coordinates) {
+				line.push(chalk.gray(
+					  column(station.coordinates.latitude, padRight, 9)
+					+ ' '
+					+ column(station.coordinates.longitude, padRight, 9)
+				))
+			} else line.push('')
+		}
 		if (columns.weight)
 			line.push(chalk.green(column(station.weight, padLeft, 6)))
 		if (columns.name)

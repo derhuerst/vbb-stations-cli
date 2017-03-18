@@ -41,7 +41,7 @@ Examples:
     vbb
     vbb --name "berliner strasse"
     vbb --id 900000044201 --columns id,name,lines
-    vbb "(s) => s.latitude > 52" "(s) => s.latitude > 12"
+    vbb "(s) => s.coordinates.latitude > 52" "(s) => s.coordinates.longitude > 12"
 ```
 
 

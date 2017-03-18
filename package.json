@@ -1,7 +1,7 @@
 {
 	"name":         "vbb-stations-cli",
 	"description":  "Find and filter VBB stations from the command line.",
-	"version":      "1.2.0",
+	"version":      "2.0.0",
 	"bin":          {"vbb-stations": "bin.js"},
 	"files":        ["bin.js", "formats.js"],
 	"keywords":     ["vbb", "stations", "filter", "find", "search", "cli"],
@@ -13,9 +13,9 @@
 	"engines":      {"node": ">=6"},
 	"dependencies": {
 		"yargs": "^6.5.0",
-		"vbb-stations": "^3.2.0",
+		"vbb-stations": "^4.1.0",
 		"vbb-tokenize-station": "^0.2.1",
-		"vbb-lines-at": "^2.2.0",
+		"vbb-lines-at": "^3.0.0",
 		"d3-dsv": "^1.0.3",
 		"lodash.pick": "^4.4",
 		"chalk": "^1.1.3",
