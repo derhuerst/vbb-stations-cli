@@ -12,7 +12,7 @@
 	"license":      "ISC",
 	"engines":      {"node": ">=6"},
 	"dependencies": {
-		"yargs": "^6.5.0",
+		"yargs": "^7.0.2",
 		"vbb-stations": "^4.1.0",
 		"vbb-tokenize-station": "^0.2.1",
 		"vbb-lines-at": "^3.0.0",
@@ -22,8 +22,8 @@
 		"pad-right": "^0.2.2",
 		"vbb-short-station-name": "^0.2",
 		"pad-left": "^2.1",
-		"cli-truncate": "^0.2.1",
-		"window-size": "^0.2.0"
+		"cli-truncate": "^1.0.0",
+		"window-size": "^0.3.0"
 	},
 	"scripts": {
 		"test": "./bin.js >/dev/null && ./bin.js --format csv >/dev/null && ./bin.js --format ndjson >/dev/null"
