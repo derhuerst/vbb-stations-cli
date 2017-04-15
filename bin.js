@@ -42,8 +42,8 @@ Examples:
 
 let selection = {}
 if (argv.id)             selection.id        = argv.id.toString().trim()
-if ('latitude'  in argv) selection.latitude  = parseFloat(argv.latitude)
-if ('longitude' in argv) selection.longitude = parseFloat(argv.longitude)
+if ('latitude'  in argv) selection['coordinates.latitude'] = parseFloat(argv.latitude)
+if ('longitude' in argv) selection['coordinates.longitude'] = parseFloat(argv.longitude)
 if ('weight'    in argv) selection.weight    = parseFloat(argv.weight)
 
 if (Object.keys(selection).length === 0) selection = 'all'
