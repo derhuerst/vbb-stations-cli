@@ -35,11 +35,11 @@ const pretty = (columns, stations, out) => {
 		const line = []
 		if (columns.id) line.push(chalk.blue(station.id))
 		if (columns.coords) {
-			if (station.coordinates) {
+			if (station.location) {
 				line.push(chalk.gray(
-					  column(station.coordinates.latitude, padRight, 9)
+					  column(station.location.latitude, padRight, 9)
 					+ ' '
-					+ column(station.coordinates.longitude, padRight, 9)
+					+ column(station.location.longitude, padRight, 9)
 				))
 			} else line.push('')
 		}
