@@ -1,29 +1,43 @@
 {
-	"name":         "vbb-stations-cli",
-	"description":  "Find and filter VBB stations from the command line.",
-	"version":      "2.1.0",
-	"bin":          {"vbb-stations": "bin.js"},
-	"files":        ["bin.js", "formats.js"],
-	"keywords":     ["vbb", "stations", "filter", "find", "search", "cli"],
-	"author":       "Jannis R <mail@jannisr.de>",
-	"homepage":     "https://github.com/derhuerst/vbb-stations-cli",
-	"repository":   "derhuerst/vbb-stations-cli",
-	"bugs":         "https://github.com/derhuerst/vbb-stations-cli/issues",
-	"license":      "ISC",
-	"engines":      {"node": ">=6"},
+	"name": "vbb-stations-cli",
+	"description": "Find and filter VBB stations from the command line.",
+	"version": "2.1.0",
+	"bin": {
+		"vbb-stations": "bin.js"
+	},
+	"files": [
+		"bin.js",
+		"formats.js"
+	],
+	"keywords": [
+		"vbb",
+		"stations",
+		"filter",
+		"find",
+		"search",
+		"cli"
+	],
+	"author": "Jannis R <mail@jannisr.de>",
+	"homepage": "https://github.com/derhuerst/vbb-stations-cli",
+	"repository": "derhuerst/vbb-stations-cli",
+	"bugs": "https://github.com/derhuerst/vbb-stations-cli/issues",
+	"license": "ISC",
+	"engines": {
+		"node": ">=6"
+	},
 	"dependencies": {
-		"yargs": "^7.0.2",
+		"chalk": "^2.3.1",
+		"cli-truncate": "^1.0.0",
 		"d3-dsv": "^1.0.3",
 		"lodash.pick": "^4.4",
-		"chalk": "^1.1.3",
-		"pad-right": "^0.2.2",
-		"vbb-short-station-name": "^0.2",
 		"pad-left": "^2.1",
-		"cli-truncate": "^1.0.0",
+		"pad-right": "^0.2.2",
 		"vbb-lines-at": "^3.1.0",
+		"vbb-short-station-name": "^0.4.0",
 		"vbb-stations": "^5.1.0",
 		"vbb-tokenize-station": "^0.3.0",
-		"window-size": "^0.3.0"
+		"window-size": "^1.1.0",
+		"yargs": "^11.0.0"
 	},
 	"scripts": {
 		"test": "./bin.js >/dev/null && ./bin.js --format csv >/dev/null && ./bin.js --format ndjson >/dev/null"
