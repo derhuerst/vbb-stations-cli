@@ -6,8 +6,6 @@
 
 [![npm version](https://img.shields.io/npm/v/vbb-stations-cli.svg)](https://www.npmjs.com/package/vbb-stations-cli)
 [![build status](https://img.shields.io/travis/derhuerst/vbb-stations-cli.svg)](https://travis-ci.org/derhuerst/vbb-stations-cli)
-[![dependency status](https://img.shields.io/david/derhuerst/vbb-stations-cli.svg)](https://david-dm.org/derhuerst/vbb-stations-cli)
-[![dev dependency status](https://img.shields.io/david/dev/derhuerst/vbb-stations-cli.svg)](https://david-dm.org/derhuerst/vbb-stations-cli#info=devDependencies)
 ![ISC-licensed](https://img.shields.io/github/license/derhuerst/vbb-stations-cli.svg)
 [![gitter channel](https://badges.gitter.im/derhuerst/vbb-rest.svg)](https://gitter.im/derhuerst/vbb-rest)
 [![support me on Patreon](https://img.shields.io/badge/support%20me-on%20patreon-fa7664.svg)](https://patreon.com/derhuerst)
@@ -39,10 +37,10 @@ Filters:
     Each filter must be an `Array.prototype.filter`-compatible funtion.
 
 Examples:
-    vbb
-    vbb --name "berliner strasse"
-    vbb --id 900000044201 --columns id,name,lines
-    vbb "(s) => s.location.latitude > 52" "(s) => s.location.longitude > 12"
+    vbb-stations
+    vbb-stations --name "berliner strasse"
+    vbb-stations --id 9003104 --columns id,name,lines
+    vbb-stations "(s) => s.latitude > 52" "(s) => s.latitude > 12"
 ```
 
 

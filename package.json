@@ -1,7 +1,7 @@
 {
 	"name": "vbb-stations-cli",
 	"description": "Find and filter VBB stations from the command line.",
-	"version": "2.1.1",
+	"version": "2.2.0",
 	"bin": {
 		"vbb-stations": "bin.js"
 	},
@@ -30,14 +30,14 @@
 		"cli-truncate": "^1.0.0",
 		"d3-dsv": "^1.0.3",
 		"lodash.pick": "^4.4",
+		"mri": "^1.1.4",
 		"pad-left": "^2.1",
 		"pad-right": "^0.2.2",
 		"vbb-lines-at": "^3.1.0",
 		"vbb-short-station-name": "^0.4.0",
 		"vbb-stations": "^6.2.0",
 		"vbb-tokenize-station": "^0.3.0",
-		"window-size": "^1.1.0",
-		"yargs": "^11.0.0"
+		"window-size": "^1.1.0"
 	},
 	"scripts": {
 		"test": "./bin.js >/dev/null && ./bin.js --format csv >/dev/null && ./bin.js --format ndjson >/dev/null"

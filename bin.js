@@ -1,16 +1,14 @@
 #!/usr/bin/env node
 'use strict'
 
-const yargs    = require('yargs')
+const mri = require('mri')
 const stations = require('vbb-stations')
 const tokenize = require('vbb-tokenize-station')
 const linesAt  = require('vbb-lines-at')
 
 const formats  = require('./formats')
 
-
-
-const argv = yargs.argv
+const argv = mri(process.argv.slice(2))
 
 if (argv.help || argv.h) {
 	process.stdout.write(`
@@ -30,10 +28,10 @@ Filters:
     Each filter must be an \`Array.prototype.filter\`-compatible funtion.
 
 Examples:
-    vbb
-    vbb --name "berliner strasse"
-    vbb --id 9003104 --columns id,name,lines
-    vbb "(s) => s.latitude > 52" "(s) => s.latitude > 12"
+    vbb-stations
+    vbb-stations --name "berliner strasse"
+    vbb-stations --id 9003104 --columns id,name,lines
+    vbb-stations "(s) => s.latitude > 52" "(s) => s.latitude > 12"
 \n`)
 	process.exit()
 }
@@ -50,7 +48,7 @@ if (Object.keys(selection).length === 0) selection = 'all'
 const filters = argv._.map(eval)
 const format = formats[argv.format] || formats.pretty
 
-const columns = (argv['columns'] || 'id,coords,weight,name,lines').split(',')
+const columns = (argv.columns || 'id,coords,weight,name,lines').split(',')
 Object.assign(columns, columns
 	.reduce((columns, column) => {columns[column] = true; return columns}, {}))
 
