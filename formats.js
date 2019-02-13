@@ -53,6 +53,12 @@ const pretty = (columns, stations, out) => {
 	}
 }
 
+const json = (columns, stations, out) => {
+	out.write('[')
+	for (const station of stations) {
+		out.write(JSON.stringify(pick(station, columns)) + ',\n')
+	}
+	out.write(']')
+}
 
-
-module.exports = {csv, ndjson, pretty}
+module.exports = {csv, ndjson, pretty, json}

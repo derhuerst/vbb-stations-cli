@@ -32,7 +32,7 @@ Options:
     --latitude  <value>             Filter by latitude.
     --longitude <value>             Filter by longitude.
     --weight    <value>             Filter by weight.
-    --format    <csv|ndjson|pretty> Default is pretty.
+    --format    <value>             One of csv,ndjson,pretty,json. Default: pretty
     --columns   <value>,<value>,…   Default is id,coords,weight,name,lines.
 
 Filters:
