@@ -27,7 +27,7 @@
 	},
 	"dependencies": {
 		"chalk": "^3.0.0",
-		"cli-truncate": "^2.1.0",
+		"cli-truncate": "^3.0.0",
 		"d3-dsv": "^1.0.3",
 		"lodash.pick": "^4.4",
 		"mri": "^1.1.4",
